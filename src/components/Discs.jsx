@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { motion } from 'framer-motion';
 
-const discs = [
+const spotifyTracks = [
   {
     title: "Verte",
     embed: "https://open.spotify.com/embed/track/5otZx9rwHn0Y9dCujbKWlg?utm_source=generator"
@@ -37,14 +37,14 @@ const youtubeVideos = [
 ];
 
 const Discs = () => (
-  <section className="py-12 px-6 text-center bg-white">
+  <section className="py-12 px-6 text-center bg-white font-sans">
     <motion.h2 
-      className="text-3xl font-bold mb-8"
+      className="text-4xl font-extrabold mb-10"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      Escucha Mi Música
+      🎧 Escucha Mi Música
     </motion.h2>
 
     <motion.div 
@@ -60,16 +60,16 @@ const Discs = () => (
         grabCursor={true}
         className="max-w-3xl mx-auto"
       >
-        {discs.map((disc, index) => (
+        {spotifyTracks.map((track, index) => (
           <SwiperSlide key={index}>
             <motion.div 
               className="flex flex-col items-center"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              <h3 className="text-lg font-semibold mb-2">{disc.title}</h3>
+              <h3 className="text-xl font-bold mb-2">{track.title}</h3>
               <iframe
-                src={disc.embed}
+                src={track.embed}
                 width="100%"
                 height="352"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -83,32 +83,42 @@ const Discs = () => (
     </motion.div>
 
     <motion.div 
-      className="mt-12"
+      className="mt-16"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="text-3xl font-bold mb-6">También en YouTube</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {youtubeVideos.map((video, idx) => (
-          <motion.div 
-            key={idx} 
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-          >
-            <iframe
-              width="100%"
-              height="200"
-              src={video.embed}
-              title={video.title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="rounded-lg shadow-md"
-            ></iframe>
-          </motion.div>
+      <h2 className="text-4xl font-extrabold mb-10">🎥 Mira Mis Videos en YouTube</h2>
+      <Swiper
+        modules={[Pagination]}
+        pagination={{ clickable: true }}
+        spaceBetween={20}
+        slidesPerView={1.2}
+        grabCursor={true}
+        className="max-w-3xl mx-auto"
+      >
+        {youtubeVideos.map((video, index) => (
+          <SwiperSlide key={index}>
+            <motion.div 
+              className="flex flex-col items-center"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <h3 className="text-xl font-bold mb-2">{video.title}</h3>
+              <iframe
+                width="100%"
+                height="315"
+                src={video.embed}
+                title={video.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="rounded-lg shadow-md"
+              ></iframe>
+            </motion.div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </motion.div>
   </section>
 );
